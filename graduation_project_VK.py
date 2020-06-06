@@ -1,9 +1,10 @@
 import requests
+import time
 
 token = "958eb5d439726565e9333aa30e50e0f937ee432e927f0dbd541c541887d919a7c56f95c04217915c32008"
 url_gloups = 'https://api.vk.com/method/groups.get'
 url_friends = 'https://api.vk.com/method/friends.get'
-
+account_succses = 0
 class User():
     """Определение групп пользователя. Парсинг друзей пользователя. Поиск групп, в которых остоит только User"""
 
@@ -20,17 +21,23 @@ class User():
                    }
 
     def groups_user(self):
-        # id, name,screen_name конкретного человека записываеться в список
+        # id, name,screen_name группы конкретного человека записываеться в список
+        time.sleep(1)
+        group_file = requests.get(url_gloups, params=self.params_group)
+        try:
+            items = group_file.json()['response']['items']
+            list_group = []
 
-        grop_file = requests.get(url_gloups, params=self.params_group)
-        items = grop_file.json()['response']['items']
-        list_group = []
+            for el in items:
+                personal_group = el['id'], el['name'], el['screen_name']
+                list_group.append(list(personal_group))
 
-        for el in items:
-            personal_group = el['id'],el['name'], el['screen_name']
-            list_group.append(list(personal_group))
-        print(len(list_group))
-        return list_group
+            print(len(list_group))
+            global account_succses
+            account_succses += 1
+            return list_group
+        except:
+            print(f'Нет групп или ограничен доступ к vk.com/id{self.us_id}' )
 
     def id_friends(self):
         # id друзей User
@@ -52,5 +59,16 @@ class User():
 
 
 
+
+
+
+
+
+
 user1 = User('171691064')
 user1.groups_friends()
+print(f'СТОЛЬКО челов ЕБАТЬ {account_succses}')
+# user2 = User('552934290')
+# print(user2.groups_user())
+
+
