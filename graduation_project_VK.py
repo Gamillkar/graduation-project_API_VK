@@ -12,16 +12,29 @@ class User():
     """Определение групп пользователя. Парсинг друзей пользователя. Поиск групп, в которых остоит только User"""
 
     def __init__(self, us_id):
-
         self.us_id = us_id
+
+        if  int != us_id: #поиск id если основной пользователь ввел имя пользователя
+            print(us_id)
+            url_id = 'https://api.vk.com/method/utils.resolveScreenName'
+            params_id = {'v': 5.61,
+                         'access_token': token,
+                         'screen_name': us_id, }
+
+            user_id = requests.get(url_id, params=params_id)
+            us_id = user_id.json()['response']['object_id']
+            self.us_id = us_id
+
         self.params_group = {'v': 5.61,
                        'access_token': token,
                        'user_id': us_id,
                        'extended': 1, }
+
         self.params_id_friends = {'v': 5.61,
                    'access_token': token,
                    'user_id': us_id,
                    }
+
 
     def groups_user(self):
         # № 3 id, name группы конкретного человека записываеться в список
@@ -50,12 +63,12 @@ class User():
             try:
                 group_file = requests.get(url_groups_count_people, params=params_count_group)
                 group_count_people_list = group_file.json()['response']['count']
-                # count_people_in_group.append(group_count_people_list)
                 print(f'\tvk.com/public{id_group}, с количеством пользователей {group_count_people_list}')
                 return group_count_people_list
             except:
                 print(group_file.json())
                 print(f'\t проблемы с vk.com/public{id_group} ')
+
 
     def id_friends(self):
         # № 1 id друзей User
@@ -67,6 +80,7 @@ class User():
 
     def groups_friends(self):
         # № 2 итерация по списку c id пользователей, с возвращением находиться ли подписчик в группе или нет
+
         id_list = list(self.id_friends())
         for group in self.groups_user():
             scroe_frinds_no_group = 0
@@ -104,7 +118,7 @@ class User():
                     json.dump(data_group, file, ensure_ascii=False, indent=2)
 
 
-user1 = User('171691064')
+user1 = User('eshmargunov')
 user1.groups_friends()
 
 

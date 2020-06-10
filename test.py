@@ -6,24 +6,24 @@ url_gloups = 'https://api.vk.com/method/groups.get'
 # url_groups_count_people = 'https://api.vk.com/method/groups.getMembers'
 #
 # возвращает группы человека
-list_group = []
-params_group = {'v': 5.61,
-                       'access_token': token,
-                       'user_id': 171691064,
-                       'extended': 1, }
-group_file = requests.get(url_gloups, params=params_group)
-
-items = group_file.json()['response']['items']
-
-for el in items:
-
-    if el['id'] == 8564:
-        count_people = self.count_people_in_group(id_group)
-        personal_group = el['id'], el['name']
-        data_group = {"name": el['name'], "gid": el['id'], 'members_count': count_people}
-        with open('group.json', 'a', encoding='utf-8') as file:
-
-            json.dump(data_group, file, ensure_ascii=False, indent=2 )
+# list_group = []
+# params_group = {'v': 5.61,
+#                        'access_token': token,
+#                        'user_id': 171691064,
+#                        'extended': 1, }
+# group_file = requests.get(url_gloups, params=params_group)
+#
+# items = group_file.json()['response']['items']
+#
+# for el in items:
+#
+#     if el['id'] == 8564:
+#         count_people = self.count_people_in_group(id_group)
+#         personal_group = el['id'], el['name']
+#         data_group = {"name": el['name'], "gid": el['id'], 'members_count': count_people}
+#         with open('group.json', 'a', encoding='utf-8') as file:
+#
+#             json.dump(data_group, file, ensure_ascii=False, indent=2 )
 
 
 
@@ -93,3 +93,16 @@ for el in items:
 # import os
 #
 # print(os.getcwd())
+
+
+def a(name):
+    if name == str:
+        url_gloupsss = 'https://api.vk.com/method/utils.resolveScreenName'
+        params_group = {'v': 5.61,
+                               'access_token': token,
+                               'screen_name': name, }
+        group_file = requests.get(url_gloupsss, params=params_group)
+        print(group_file.json()['response']['object_id'])
+    else:
+        print('hehe')
+a(214124)
