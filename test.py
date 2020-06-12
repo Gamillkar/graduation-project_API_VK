@@ -1,5 +1,4 @@
 import json
-import requests
 token = "958eb5d439726565e9333aa30e50e0f937ee432e927f0dbd541c541887d919a7c56f95c04217915c32008"
 url_gloups = 'https://api.vk.com/method/groups.get'
 # url_friends = 'https://api.vk.com/method/friends.get'
@@ -94,15 +93,17 @@ url_gloups = 'https://api.vk.com/method/groups.get'
 #
 # print(os.getcwd())
 
+#
+# def a(name):
+#     if name == str:
+#         url_gloupsss = 'https://api.vk.com/method/utils.resolveScreenName'
+#         params_group = {'v': 5.61,
+#                                'access_token': token,
+#                                'screen_name': name, }
+#         group_file = requests.get(url_gloupsss, params=params_group)
+#         print(group_file.json()['response']['object_id'])
+#     else:
+#         print('hehe')
+# a(214124)
 
-def a(name):
-    if name == str:
-        url_gloupsss = 'https://api.vk.com/method/utils.resolveScreenName'
-        params_group = {'v': 5.61,
-                               'access_token': token,
-                               'screen_name': name, }
-        group_file = requests.get(url_gloupsss, params=params_group)
-        print(group_file.json()['response']['object_id'])
-    else:
-        print('hehe')
-a(214124)
+
