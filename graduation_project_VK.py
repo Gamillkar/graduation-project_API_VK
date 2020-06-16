@@ -55,21 +55,19 @@ class User():
 
     def count_people_in_group(self, id_group):
         # Количество пользователей в группе
-        for group in self.list_group:
-            time.sleep(0.2)
-            id_group = group[0]
-            params_count_group = {'v': 5.61,
-                            'access_token': token,
-                            'group_id': id_group,
-                             }
-            try:
-                group_file = requests.get(url_groups_count_people, params=params_count_group)
-                group_count_people_list = group_file.json()['response']['count']
-                print(f'\tvk.com/public{id_group}, с количеством пользователей {group_count_people_list}')
-                return group_count_people_list
-            except:
-                print(group_file.json())
-                print(f'\t проблемы с vk.com/public{id_group} ')
+        time.sleep(0.2)
+        params_count_group = {'v': 5.61,
+                        'access_token': token,
+                        'group_id': id_group,
+                         }
+        try:
+            group_file = requests.get(url_groups_count_people, params=params_count_group)
+            group_count_people_list = group_file.json()['response']['count']
+            print(f'\tvk.com/public{id_group}, с количеством пользователей {group_count_people_list}')
+            return group_count_people_list
+        except:
+            print(group_file.json())
+            print(f'\t проблемы с vk.com/public{id_group} ')
 
     def id_friends(self):
         # № 1 id друзей User
